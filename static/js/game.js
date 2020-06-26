@@ -21,12 +21,22 @@ let dvx = 0;
 let dvy = 0;
 
 let ball = new Ball(10, 10, 0, 0, true);
-let secondBall = new Ball(10, 10, 1, 1, false);
+let balls = [];
+let ballsNum = 10;
+for (let i = 0; i < ballsNum; i++) {
+  let newBallX = Math.random() * (FIELD_WIDTH - 20);
+  let newBallY = Math.random() * (FIELD_HEIGHT - 20);
+  let newBallVx = Math.random() * 5;
+  let newBallVy = Math.random() * 5;
+  let newBall = new Ball(newBallX, newBallY, newBallVx, newBallVy, false);
+  balls.push(newBall);
+}
 
-ctx.beginPath()
-// ctx.fillRect(x, y, 20, 20)
-ctx.fillRect(ball.x, ball.y, 20, 20)
-ctx.stroke()
+
+// ctx.beginPath()
+// // ctx.fillRect(x, y, 20, 20)
+// ctx.fillRect(ball.x, ball.y, 20, 20)
+// ctx.stroke()
 
 // Состояние клавиш стрелочек
 let arrowsPressed = {
@@ -110,9 +120,11 @@ function update() {
 
 function render() {
   ctx.clearRect(0, 0, FIELD_WIDTH, FIELD_HEIGHT);
-  // ctx.fillRect(x, y, 20, 20);
+  
   ctx.fillRect(ball.x, ball.y, 20, 20);
-  ctx.fillRect(secondBall.x, secondBall.y, 20, 20);
+  for (let b of balls) {
+    ctx.fillRect(b.x, b.y, 20, 20);
+  }
 }
 
 function move(dx, dy) {
